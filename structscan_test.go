@@ -86,14 +86,14 @@ func TestScanStructs(t *testing.T) {
 	var invalidDest []*testEntity
 	err = ScanStructs(rowsFailStruct, invalidDest)
 	require.Error(t, err)
-	assert.Equal(t, "expected a pointer to a slice, got []*sqlext.testEntity", err.Error())
+	assert.Equal(t, "expected a pointer to a slice, got []*pgxscan.testEntity", err.Error())
 	rowsFailStruct.Close()
 
 	rowsFailMissing := selectRows(t, conn, e1.ID, e2.ID)
 	var missingDest []*testMissingField
 	err = ScanStructs(rowsFailMissing, &missingDest)
 	require.Error(t, err)
-	assert.Equal(t, `missing column "some_data" in dest *sqlext.testMissingField`, err.Error())
+	assert.Equal(t, `missing column "some_data" in dest *pgxscan.testMissingField`, err.Error())
 	rowsFailMissing.Close()
 }
 
