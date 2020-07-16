@@ -12,14 +12,14 @@ import (
 )
 
 type testEntity struct {
-	ID        string    `json:"id"`
-	CreatedAt time.Time `json:"created_at"`
-	SomeData  string    `json:"some_data"`
+	ID        string    `db:"id"`
+	CreatedAt time.Time `db:"created_at"`
+	SomeData  string    `db:"some_data"`
 }
 
 type testMissingField struct {
-	ID        string    `json:"id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        string    `db:"id"`
+	CreatedAt time.Time `db:"created_at"`
 }
 
 func TestScanStruct(t *testing.T) {
