@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
+	"github.com/jackc/pgconn"
 	pgx "github.com/jackc/pgx/v4"
 	"github.com/jmoiron/sqlx"
 	"github.com/jmoiron/sqlx/reflectx"
@@ -16,6 +17,7 @@ var DefaultMapper = reflectx.NewMapperFunc("db", sqlx.NameMapper)
 type Queryer interface {
 	Query(ctx context.Context, sql string, args ...interface{}) (pgx.Rows, error)
 	QueryRow(ctx context.Context, sql string, args ...interface{}) pgx.Row
+	Exec(ctx context.Context, sql string, args ...interface{}) (pgconn.CommandTag, error)
 }
 
 func Get(ctx context.Context, queryer Queryer, dest interface{}, query string, args ...interface{}) error {
