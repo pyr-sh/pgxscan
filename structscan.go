@@ -14,30 +14,30 @@ import (
 
 var DefaultMapper = reflectx.NewMapperFunc("db", sqlx.NameMapper)
 
-type Queryer interface {
+type Querier interface {
 	Query(ctx context.Context, sql string, args ...interface{}) (pgx.Rows, error)
 	QueryRow(ctx context.Context, sql string, args ...interface{}) pgx.Row
 	Exec(ctx context.Context, sql string, args ...interface{}) (pgconn.CommandTag, error)
 }
 
-func Get(ctx context.Context, queryer Queryer, dest interface{}, query string, args ...interface{}) error {
-	rows, err := queryer.Query(ctx, query, args...)
+func Get(ctx context.Context, querier Querier, dest interface{}, query string, args ...interface{}) error {
+	rows, err := querier.Query(ctx, query, args...)
 	if err != nil {
 		return err
 	}
 	return ScanStruct(rows, dest)
 }
 
-func Select(ctx context.Context, queryer Queryer, dest interface{}, query string, args ...interface{}) error {
-	rows, err := queryer.Query(ctx, query, args...)
+func Select(ctx context.Context, querier Querier, dest interface{}, query string, args ...interface{}) error {
+	rows, err := querier.Query(ctx, query, args...)
 	if err != nil {
 		return err
 	}
 	return ScanStructs(rows, dest)
 }
 
-func SelectFlat(ctx context.Context, queryer Queryer, dest interface{}, query string, args ...interface{}) error {
-	rows, err := queryer.Query(ctx, query, args...)
+func SelectFlat(ctx context.Context, querier Querier, dest interface{}, query string, args ...interface{}) error {
+	rows, err := querier.Query(ctx, query, args...)
 	if err != nil {
 		return err
 	}

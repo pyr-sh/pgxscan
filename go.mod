@@ -1,4 +1,4 @@
-module github.com/pyr-sh/pgxscan
+module github.com/pyr-sh/pgxscan/v2
 
 go 1.14
 
